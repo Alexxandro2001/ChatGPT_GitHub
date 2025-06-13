@@ -1,0 +1,24 @@
+# Next.js build
+.next/
+out/
+
+# node modules
+node_modules/
+
+# system
+.DS_Store
+*.log
+*.lock
+npm-debug.log*
+
+# env
+.env
+.env.local
+.env.production
+.env.development
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace

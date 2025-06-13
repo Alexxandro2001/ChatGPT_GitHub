@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --brand-orange: #F7931E;
+  --text-color: #000;
+  --bg-color: #fff;
+  --border-color: #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: var(--text-color);
+  background: var(--bg-color);
+}
+
+@layer base {
+  /* Stile globale per i form e gli input */
+  input, 
+  select, 
+  textarea {
+    @apply text-black bg-white border border-gray-300 rounded-md px-4 py-2 w-full outline-none;
+  }
+
+  input:focus, 
+  select:focus, 
+  textarea:focus {
+    @apply border-brand-orange ring-2 ring-brand-orange ring-opacity-30;
+  }
+
+  button {
+    @apply bg-white text-black border border-gray-300 rounded-md px-4 py-2 transition-colors;
+  }
+
+  button:focus {
+    @apply outline-none ring-2 ring-brand-orange ring-opacity-50;
+  }
+
+  /* Eccezione per i bottoni primari */
+  button.bg-brand-orange {
+    @apply text-white border-transparent;
+  }
+
+  /* Stili per placeholder */
+  ::placeholder {
+    @apply text-gray-400;
+  }
+} 
