@@ -216,7 +216,7 @@ export default function Home() {
           </Link>
         </div>
         
-        <ProductGrid />
+        <ProductGrid products={filteredProducts} onAddToCart={handleAddToCart} />
       </section>
 
       {/* Resto del contenuto */}

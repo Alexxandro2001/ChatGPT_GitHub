@@ -1,6 +1,7 @@
 'use client';
 
 import ProductCard from './ProductCard';
+import { useState, useEffect } from 'react';
 
 // Dati di esempio
 const sampleProducts = [
@@ -75,25 +76,64 @@ interface Product {
   image: string;
   name: string;
   price: number | string;
+  sku: string;
+  category: string;
 }
 
 interface ProductGridProps {
-  products: Product[];
+  products?: Product[];
   onAddToCart?: (product: Product) => void;
 }
 
 export default function ProductGrid({ products, onAddToCart }: ProductGridProps) {
+  const [displayProducts, setDisplayProducts] = useState<Product[]>([]);
+  const [apiError, setApiError] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Se products è undefined o vuoto, usa i dati di esempio
+    if (!products || products.length === 0) {
+      setDisplayProducts(sampleProducts);
+      
+      // Se products è undefined, probabilmente c'è un problema con l'API
+      if (products === undefined) {
+        setApiError(true);
+      }
+    } else {
+      setDisplayProducts(products);
+      setApiError(false);
+    }
+  }, [products]);
+
+  if (displayProducts.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-lg text-gray-600">Nessun prodotto trovato</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          image={product.image}
-          name={product.name}
-          price={product.price}
-          onAddToCart={onAddToCart ? () => onAddToCart(product) : undefined}
-        />
-      ))}
+    <div className="relative">
+      {apiError && (
+        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
+          <p className="font-bold">Attenzione</p>
+          <p>Il server prodotti non risponde. Visualizzazione dati di esempio.</p>
+        </div>
+      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {displayProducts.map((product) => (
+          <ProductCard
+            key={product.id}
+            id={product.id.toString()}
+            image={product.image}
+            name={product.name}
+            price={product.price}
+            sku={product.sku}
+            category={product.category}
+            onAddToCart={onAddToCart ? () => onAddToCart(product) : undefined}
+          />
+        ))}
+      </div>
     </div>
   );
 } 

@@ -38,6 +38,10 @@
     {
       "when": "creating API routes",
       "instruction": "Organizza le route API in app/api/ seguendo le convenzioni RESTful. Usa middleware per l'autenticazione se necessario."
+    },
+    {
+      "pattern": ".*",
+      "instruction": "Dopo ogni modifica o generazione di codice, esegui automaticamente:\n1. git add .\n2. git commit -m \"[Cursor] Modifica automatica salvata\"\n3. git push origin main\nAssicurati che tutto venga salvato nel repository GitHub."
     }
   ]
 }
